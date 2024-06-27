@@ -31,7 +31,7 @@ const Today = () => {
         <img
           src={images.rainyLogo}
           alt="cloud-rain-logo"
-          width={`220px`}
+          width={`100%`}
           className="self-stretch"
         />
         <div className="flex h-full w-64 flex-col">

@@ -6,6 +6,7 @@ import precipitationLogo from "../assets/precipitation.svg";
 import windLogo from "../assets/wind.svg";
 import humidityLogo from "../assets/humidity.svg";
 import temperatureLogo from "../assets/fluent--temperature-16-filled.svg";
+import weatherLogo1 from '../assets/390480_eolo_weather_wind_forecast_icon.svg'
 export default {
   searchLogo,
   locationLogo,
@@ -15,4 +16,5 @@ export default {
   windLogo,
   humidityLogo,
   temperatureLogo,
+  weatherLogo1,
 };
