@@ -1,14 +1,35 @@
 import images from "../constants/images";
-const Today = () => {
+import { getWeekDays, getDayMonthFromDate } from "../../utils/DatetimeUtils";
+import { useEffect, useState } from "react";
+import { useStateContext } from "../context/StateContext";
+import useWeather from "../customHook/useWeather";
+
+const Today = ({ weather }) => {
+  // const { todayWeather, setTodayWeather } = useStateContext();
+  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000); // Update every second
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+  if (!weather) {
+    return <div>No weather data available.</div>;
+  }
   return (
     <div className="flex justify-between px-10 text-xl text-white">
       <div className="m-14 flex flex-col justify-between gap-4 p-8">
         <h3 className="bg-gradient-to-r from-blue-400 to-blue-100 bg-clip-text text-3xl font-semibold text-transparent">
           Today&apos;s Weather Forecast
         </h3>
-        <p className="text-2xl font-semibold">Wednesday, July 12. 10:03 AM </p>
+        <p className="text-2xl font-semibold">
+          {getWeekDays()[0]}, {getDayMonthFromDate()}.{" "}
+          {time.toTimeString().split(" ")[0]}{" "}
+        </p>
         <div className="flex">
-          <span className="text-7xl font-semibold">30</span>
+          <span className="text-7xl font-semibold">{weather.main.temp}</span>
           <img
             src={images.celsiusLogo}
             alt="celsius-logo"
@@ -18,7 +39,9 @@ const Today = () => {
         </div>
         <div className="flex">
           <p>Feels </p>
-          <span className="pl-3 pr-1 text-xl font-semibold">32</span>
+          <span className="pl-3 pr-1 text-xl font-semibold">
+            {weather.main.feels_like}
+          </span>
           <img
             src={images.celsiusLogo}
             alt="celsius-logo"
@@ -37,24 +60,38 @@ const Today = () => {
         <div className="flex h-full w-64 flex-col">
           <h4 className="pb-8 pt-14 text-3xl font-semibold">Thundershower</h4>
           <div className="flex gap-2">
-            <img src={images.precipitationLogo} alt="precipitation-logo" width={`20px`} />
+            <img
+              src={images.precipitationLogo}
+              alt="precipitation-logo"
+              width={`20px`}
+            />
             <div className="flex gap-2">
-              <p className="font-medium ">Precipitation: </p>
-              <span>80%</span>
+              <p className="font-medium">Precipitation: </p>
+              <span>
+                {weather.perception || weather.rain ? weather.perception : "0%"}
+              </span>
             </div>
           </div>
           <div className="flex gap-2">
-            <img src={images.humidityLogo} alt="precipitation-logo" width={`20px`} />
+            <img
+              src={images.humidityLogo}
+              alt="precipitation-logo"
+              width={`20px`}
+            />
             <div className="flex gap-2">
-              <p className="font-medium ">Humidity: </p>
-              <span>74%</span>
+              <p className="font-medium">Humidity: </p>
+              <span>{weather.main.humidity}%</span>
             </div>
           </div>
           <div className="flex gap-2">
-            <img src={images.windLogo} alt="precipitation-logo" width={`20px`} />
+            <img
+              src={images.windLogo}
+              alt="precipitation-logo"
+              width={`20px`}
+            />
             <div className="flex gap-2">
-              <p className="font-medium ">Wind: </p>
-              <span>18Km/h</span>
+              <p className="font-medium">Wind: </p>
+              <span>{weather.wind.speed}Km/h</span>
             </div>
           </div>
         </div>

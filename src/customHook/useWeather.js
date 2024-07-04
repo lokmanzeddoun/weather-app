@@ -3,5 +3,5 @@ import { fetchWeatherData } from "../services/OpenWeatherService";
 
 export default function useWeather(lat, lon) {
   const result = useQuery({ queryKey: [lat, lon], queryFn: fetchWeatherData });
-  return [result ?? [], result.status];
+  return [result?.data ?? [], result.status];
 }

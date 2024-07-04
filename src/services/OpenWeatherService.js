@@ -4,6 +4,7 @@ const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 export async function fetchWeatherData({ queryKey }) {
   const lat = queryKey[0];
   const lon = queryKey[1];
+  console.log(lat, lon);
   try {
     let [weatherPromise, forecastPromise] = await Promise.all([
       fetch(
@@ -16,6 +17,7 @@ export async function fetchWeatherData({ queryKey }) {
 
     const weatherResponse = await weatherPromise.json();
     const forecastResponse = await forecastPromise.json();
+    console.log([weatherResponse, forecastResponse]);
     return [weatherResponse, forecastResponse];
   } catch (error) {
     console.log(error);

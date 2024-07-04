@@ -2,7 +2,6 @@ import { useState } from "react";
 import images from "../constants/images";
 import { useStateContext } from "../context/StateContext";
 import useCityList from "../customHook/useCityList";
-
 const NavBar = () => {
   const [showResults, setShowResults] = useState(false);
   const { city, setCity } = useStateContext();

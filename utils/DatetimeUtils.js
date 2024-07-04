@@ -16,6 +16,12 @@ export function getDayMonthFromDate() {
 
   return day + " " + month;
 }
+export function getDayMonthFromDate2(d) {
+  const month = MONTHS[d.getMonth()].slice(0, 3);
+  const day = d.getUTCDate();
+
+  return day + " " + month;
+}
 
 export function transformDateFormat() {
   const month = date.toLocaleString("en-US", { month: "2-digit" });
