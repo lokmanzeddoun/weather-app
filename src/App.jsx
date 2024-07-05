@@ -26,7 +26,7 @@ function App() {
           >
             <NavBar />
             <Routes>
-              <Route path="/" element={<Home />}></Route>
+              <Route path="/weather-app" element={<Home />}></Route>
             </Routes>
           </Suspense>
         </QueryClientProvider>

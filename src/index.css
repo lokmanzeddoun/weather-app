@@ -49,7 +49,7 @@
 
 @layer utilities {
   .background-image {
-    background-image: url("background-1.jpg");
+    background-image: url("/images/background-1.jpg");
   }
   .side-nav__item:not(:last-child),
   .side-nav__item--active {
