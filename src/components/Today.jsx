@@ -1,9 +1,7 @@
 import images from "../constants/images";
 import { getWeekDays, getDayMonthFromDate } from "../../utils/DatetimeUtils";
 import { useEffect, useState } from "react";
-import { useStateContext } from "../context/StateContext";
-import useWeather from "../customHook/useWeather";
-
+import { ALL_DESCRIPTIONS } from "../../utils/DateConstants";
 const Today = ({ weather }) => {
   // const { todayWeather, setTodayWeather } = useStateContext();
   const [time, setTime] = useState(new Date());
@@ -52,7 +50,11 @@ const Today = ({ weather }) => {
       </div>
       <div className="mr-36 flex w-3/12 items-center justify-center gap-3 p-8">
         <img
-          src={images.rainyLogo}
+          src={
+            ALL_DESCRIPTIONS.find(
+              (item) => item.name === weather.weather[0].icon,
+            )?.icon
+          }
           alt="cloud-rain-logo"
           width={`100%`}
           className="self-stretch"

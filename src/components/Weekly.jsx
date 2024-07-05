@@ -1,4 +1,5 @@
-import images from "../constants/images";
+/* eslint-disable react/prop-types */
+import { ALL_DESCRIPTIONS } from "../../utils/DateConstants";
 import WeeklyItem from "./WeeklyItem";
 const Weekly = ({ weather }) => {
   const items = Array.from(
@@ -7,7 +8,6 @@ const Weekly = ({ weather }) => {
       const j = i * 8; // Ensure j increments by 8
       if (j < weather.list.length) {
         const date = new Date(weather.list[j].dt * 1000);
-        console.log(date);
         return date;
       }
       return null; // Handle case where index exceeds weather.list length
@@ -23,7 +23,11 @@ const Weekly = ({ weather }) => {
           return (
             <WeeklyItem
               key={i}
-              logo={images.weatherLogo1}
+              logo={
+                ALL_DESCRIPTIONS.find(
+                  (item) => item.name === weather.list[i+8].weather[0].icon,
+                )?.icon
+              }
               time={value}
               wind={weather.list[i + 8].wind.speed}
               temp={weather.list[i + 8].main.temp}

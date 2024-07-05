@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import Item from "./Item";
+import { ALL_DESCRIPTIONS } from "../../utils/DateConstants";
 import Card from "./Card";
 import { useState } from "react";
-import images from "../constants/images";
 const Details = ({ items, weather }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const times = Array.from({ length: 8 }, (_, j) => {
@@ -48,10 +48,15 @@ const Details = ({ items, weather }) => {
       <div className="mt-6 flex items-center justify-between">
         {times.map((time, index) => {
           const [degree, type] = getAction(activeIndex, index);
+
           return (
             <Card
               key={index}
-              logo={images.weatherLogo1}
+              logo={
+                ALL_DESCRIPTIONS.find(
+                  (item) => item.name === weather.list[index].weather[0].icon,
+                )?.icon
+              }
               degree={degree}
               time={time}
               type={type}

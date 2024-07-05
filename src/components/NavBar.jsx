@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import images from "../constants/images";
 import { useStateContext } from "../context/StateContext";
 import useCityList from "../customHook/useCityList";
+import ResultList from "./ResultCities";
 const NavBar = () => {
   const [showResults, setShowResults] = useState(false);
   const { city, setCity } = useStateContext();
@@ -17,7 +18,7 @@ const NavBar = () => {
       </h2>
       <div className="flex gap-2 text-3xl font-semibold text-white">
         <img src={images.locationLogo} alt="" className="w-8" />
-        <span>{result ? `${result.name},${result.country}` : '' }</span>
+        <span>{result ? `${result.name},${result.country}` : ""}</span>
       </div>
       <div className="relative mx-auto w-full max-w-3xl">
         <form className="ml-24 flex w-full flex-shrink-0 flex-grow-0 basis-5/12 items-center justify-center">
@@ -40,30 +41,15 @@ const NavBar = () => {
           </button>
         </form>
         {showResults && (
-          <div className="absolute ml-28 mt-0.5 w-full rounded-3xl border border-t-0 border-gray-300 bg-gray-100 px-2 py-2">
-            {cities.length > 0 ? (
-              cities.map((result, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="cursor-pointer px-4 py-2 hover:bg-gray-200"
-                    onMouseDown={(e) => e.preventDefault()}
-                  >
-                    <button
-                      onClick={() => {
-                        console.log(result)
-                        setResult(result);
-                      }}
-                    >
-                      {result.name},{result.country}
-                    </button>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="px-4 py-2 text-gray-500">No results found</div>
-            )}
-          </div>
+          <Suspense
+            fallback={
+              <div className="absolute ml-28 mt-0.5  w-full rounded-3xl border border-t-0 border-gray-300 bg-gray-100 px-2 py-2 text-center text-gray-500">
+                Loading ...
+              </div>
+            }
+          >
+            <ResultList cities={cities} setResult={setResult} />
+          </Suspense>
         )}
       </div>
     </header>

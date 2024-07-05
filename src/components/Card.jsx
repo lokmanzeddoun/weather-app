@@ -15,6 +15,7 @@ const Card = ({ logo, time, degree, type }) => {
   return (
     <div className="ml-4 flex w-1/12 flex-col items-center justify-center text-xl font-medium text-white">
       <span className="">{time}</span>
+      {console.log(logo)}
       <img src={logo} alt="logo" width={"80%"} />
       <h2 className="">
         {degree} {writeUnit(type)}
