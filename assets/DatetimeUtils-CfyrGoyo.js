@@ -1,0 +1,1 @@
+import{M as o,D as n}from"./DateConstants-3g61czcm.js";const a=new Date;function D(){const t=new Date().getDay();return n.slice(t,n.length).concat(n.slice(0,t))}function r(){const t=o[a.getMonth()].slice(0,3);return a.getUTCDate()+" "+t}function y(t){const e=o[t.getMonth()].slice(0,3);return t.getUTCDate()+" "+e}export{r as a,y as b,D as g};
