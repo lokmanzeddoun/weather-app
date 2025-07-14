@@ -21,7 +21,7 @@ const NavBar = () => {
         <span>{result ? `${result.name},${result.country}` : ""}</span>
       </div>
       <div className="relative mx-auto w-full max-w-3xl">
-        <form className="ml-24 flex w-full flex-shrink-0 flex-grow-0 basis-5/12 items-center justify-center">
+        <form className="ml-24 flex w-full flex-shrink-0 flex-grow-0 basis-5/12 items-center justify-center" role="search" aria-label="City search">
           <input
             type="text"
             placeholder="Search area here."
@@ -35,11 +35,15 @@ const NavBar = () => {
               }, 2);
             }}
             onChange={handleInputChange}
+            aria-label="Search for a city"
+            autoComplete="off"
+            tabIndex={0}
           />
-          <button className="border-none bg-gray-100">
+          <button className="border-none bg-gray-100" aria-label="Search" tabIndex={0} type="submit">
             <img src={images.searchLogo} alt="search_logo" width={`30px`} />
           </button>
         </form>
+        {/* TODO: Add autocomplete and recent searches dropdown here */}
         {showResults && (
           <Suspense
             fallback={
