@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { useStateContext } from "../context/StateContext";
 import useWeather from "../customHook/useWeather";
 import images from "../constants/images";
+import LoadingFallback from "../components/LoadingFallback";
 
 const Today = lazy(() => import("../components/Today"));
 const Weekly = lazy(() => import("../components/Weekly"));
@@ -36,42 +37,24 @@ const Home = () => {
   const [weather, weatherStatus] = useWeather(latitude, longitude);
 
   if (weatherStatus === "loading") {
-    return <div>Loading...</div>;
+    return <LoadingFallback message="Fetching weather data..." />;
   }
 
   if (weatherStatus === "error" || !weather) {
-    return <div>Error loading weather data</div>;
+    return <div role="alert" className="text-red-600 text-center p-8">Error loading weather data</div>;
   }
 
   return (
     <div className="border-box">
       {result ? (
         <div>
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center p-4">
-                <h2 className="animate-spin text-8xl">🌀</h2>
-              </div>
-            }
-          >
+          <Suspense fallback={<LoadingFallback message="Loading today's weather..." />}>
             {weather[0] && <Today weather={weather[0]} />}
           </Suspense>
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center p-4">
-                <h2 className="animate-spin text-8xl">🌀</h2>
-              </div>
-            }
-          >
+          <Suspense fallback={<LoadingFallback message="Loading details..." />}>
             {weather[1] && <Details weather={weather[1]} items={items} />}
           </Suspense>
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center p-4">
-                <h2 className="animate-spin text-8xl">🌀</h2>
-              </div>
-            }
-          >
+          <Suspense fallback={<LoadingFallback message="Loading weekly forecast..." />}>
             {weather[1] && <Weekly weather={weather[1]} />}
           </Suspense>
         </div>
